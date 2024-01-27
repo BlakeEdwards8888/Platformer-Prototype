@@ -890,7 +890,7 @@ Transform:
   m_GameObject: {fileID: 2141326781}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 12.96, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -913,6 +913,8 @@ MonoBehaviour:
   moveSpeed: 7
   velPower: 0.9
   frictionAmount: 0.2
+  jumpHeightMoveSpeedMultiplier: 1.3
+  jumpHeightBuffer: 0.5
 --- !u!114 &2141326787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,6 +983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityScale: 1
   fallingGravityScale: 2.5
+  maxFallSpeed: 50
 --- !u!58 &2141326791
 CircleCollider2D:
   m_ObjectHideFlags: 0

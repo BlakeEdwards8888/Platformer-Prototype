@@ -12,6 +12,8 @@ namespace Platformer.Movement
         [SerializeField] float moveSpeed;
         [SerializeField] float velPower;
         [SerializeField] float frictionAmount;
+        [SerializeField] float jumpHeightMoveSpeedMultiplier;
+        [SerializeField] float jumpHeightBuffer;
 
         InputReader inputReader;
         Rigidbody2D rb2d;
@@ -33,6 +35,14 @@ namespace Platformer.Movement
         private void HandlePlayerInput()
         {
             float targetSpeed = inputReader.MovementValue.x * moveSpeed;
+
+            if (!groundChecker.IsGrounded() && Mathf.Abs(rb2d.velocity.y) < jumpHeightBuffer)
+            {
+                targetSpeed *= jumpHeightMoveSpeedMultiplier;
+            }
+
+            print(targetSpeed);
+
             float speedDif = targetSpeed - rb2d.velocity.x;
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
             float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
@@ -42,7 +52,7 @@ namespace Platformer.Movement
 
         void HandleFriction()
         {
-            if (Mathf.Abs(inputReader.MovementValue.x) >= 0.01f) return;
+            if (!groundChecker.IsGrounded() || Mathf.Abs(inputReader.MovementValue.x) >= 0.01f) return;
 
             float amount = Mathf.Min(Mathf.Abs(rb2d.velocity.x), Mathf.Abs(frictionAmount));
             amount *= Mathf.Sign(rb2d.velocity.x);

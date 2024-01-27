@@ -8,6 +8,7 @@ namespace Platformer.Movement
     {
         [SerializeField] float gravityScale = 1;
         [SerializeField] float fallingGravityScale = 2.5f;
+        [SerializeField] float maxFallSpeed = 50;
 
         Rigidbody2D rb2d;
 
@@ -25,6 +26,14 @@ namespace Platformer.Movement
             else
             {
                 rb2d.gravityScale = gravityScale;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if(rb2d.velocity.y < -maxFallSpeed)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, -maxFallSpeed);
             }
         }
     }
