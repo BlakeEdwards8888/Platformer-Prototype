@@ -21,14 +21,14 @@ namespace Platformer.Movement
 
         private void Update()
         {
-            if (IsGrounded())
-            {
-                timeSinceGrounded = 0;
-            }
-
             if(IsCoyoteTime())
             {
                 timeSinceGrounded += Time.deltaTime;
+            }
+
+            if (IsGrounded())
+            {
+                timeSinceGrounded = 0;
             }
         }
 
@@ -36,13 +36,7 @@ namespace Platformer.Movement
         {
             RaycastHit2D[] results = new RaycastHit2D[1];
 
-            if(rb2d.Cast(-Vector2.up, groundFilter, results, groundCheckDistance) > 0)
-            {
-                return true;
-            }
-
-            return false;
-            
+            return rb2d.Cast(-Vector2.up, groundFilter, results, groundCheckDistance) > 0;
         }
 
         public bool IsCoyoteTime()
